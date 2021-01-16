@@ -7,6 +7,7 @@ int is_divisible(string, string);
 bool allCharactersSame(string s);
 int gcd(long long int a, long long int b);
 int lcm(int a, int b);
+string lcm_possible(string s1, string s2);
 
 int main()
 {
@@ -22,22 +23,15 @@ int main()
         string s, t;
         cin >> s >> t;
 
+        if(t > s)
+            swap(s, t);
+
         if(is_divisible(s, t))
             answer.push_back(s);
-        else if(is_divisible(t, s))
-            answer.push_back(t);
 
-         else if(is_divisible(t, s) == 0 && is_divisible(s, t) == 0)
+         else if(is_divisible(s, t) == 0)
          {
-            if(allCharactersSame(t) && allCharactersSame(s) && s[0] == t[0])
-            {
-               answer.push_back(str_with_num(string(1, s[0]), lcm(s.size(), t.size())));
-            }
-
-            else
-            {
-                answer.push_back("-1");
-            }
+            answer.push_back(lcm_possible(s, t));
          }
         q--;
     }
@@ -76,6 +70,21 @@ int is_divisible(string s1, string s2 )
     }
 }
 
+string lcm_possible(string s1, string s2)
+{
+    int i = 1;
+
+    string ss1 = str_with_num(s1, lcm(s1.size(), s2.size()) / s1.size());
+    string ss2 = str_with_num(s2, lcm(s1.size(), s2.size()) / s2.size());
+
+    if(ss1 == ss2)
+    {
+        return ss1;
+    }
+    else return "-1";
+
+}
+
 bool allCharactersSame(string s)
 {
     int n = s.length();
@@ -97,5 +106,3 @@ int lcm(int a, int b)
 {
     return (a / gcd(a, b)) * b;
 }
-
-
