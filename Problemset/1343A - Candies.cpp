@@ -21,7 +21,7 @@ int main()
             x = n / (pow(2.0,i) - 1);
             if(floor(x) == ceil(x))
             {
-                cout << setprecision(15) <<  x << endl;
+                cout << setprecision(15) <<  x <<flush << endl;
                 break;
             }
         }

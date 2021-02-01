@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long int
@@ -9,29 +9,25 @@ using namespace std;
 int main()
 {
     fast;
-    int n, t;
-    cin >> n >> t;
-    int temp;
+    int n, k;
+    cin >> n >> k;
     vector <int> v;
-    v.pb(0);
-    int d = 0;
-
-    for(int i = 1; i < n; i++)
+    int temp;
+    for(int i = 0; i < n; i++)
     {
         cin >> temp;
         v.pb(temp);
     }
 
-    for(int i = 1; i < n; i++)
+    int count = 0;
+
+    for(int i = 0; i < n; i++)
     {
-        d = i + v.at(i);
-        if(d == t)
+        if(5 - v.at(i) >= k)
         {
-            cout << "YES";
-            return 0;
+            count ++;
         }
-        i = d - 1;
     }
 
-    cout << "NO";
+    cout << count / 3 << flush;
 }
