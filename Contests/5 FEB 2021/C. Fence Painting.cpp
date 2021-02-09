@@ -71,28 +71,31 @@ int main()
                 }
             }
 
+            for(int i = 1; i < New.size(); i++)
+            {
+                if(painter.at(m - 1) == New.at(i))
+                {
+                    ans[m - 1] = i;
+                    break;
+                }
+            }
+
 
             for(int i = 0; i < m; i++)
             {
-                    if(binary_search(New.begin(), New.end(), painter.at(i)) && record[upper_bound(New.begin(), New.end(), painter.at(i)) - New.begin()])
-                    {
-                        int u = upper_bound(New.begin(), New.end(), painter.at(i)) - New.begin();
-                        ans[i] = u;
-                        painter.at(i) = -1;
-                        record[u] = 0;
-                        original[u] = New[u];
-                    }
-
-                if(painter.at(i) != -1)
+                for(int j = 1; j <= n; j++)
                 {
-                    int u = upper_bound(New.begin(), New.end(), painter.at(i)) - New.begin();
-                        if((binary_search(New.begin(), New.end(), painter.at(i))))
+                    if(painter.at(i) == New.at(j))
+                    {
+                        if(record[j])
                         {
-                            ans[i] = u;
+                            ans[i] = j;
                             painter.at(i) = -1;
-                            record[u] = 0;
-                            original[u] = New[u];
+                            record[j] = 0;
+                            //original[j] = New[j];
+                            break;
                         }
+                    }
                 }
             }
 
