@@ -14,45 +14,29 @@ int main()
     vector <int> v;
     vector <int> vc;
     int temp;
-    int curr = -1;
-    int total = 0;
-    for(int i = 1; i <= n; i++)
+    for(int i = 0; i < n; i++)
     {
         cin >> temp;
         v.pb(temp);
     }
 
-    total = accumulate(v.begin(), v.end(), 0);
-
-
+    vc = v;
     vector <int> ans;
-    ans.pb(total);
+    int sum = 0;
 
+    int total = 0;
 
     for(int i = 0; i < n; i++)
     {
-        if(v.at(i) == 0)
-        {
-            int count = 0;
-            for(int j = i; j >= 0; j--)
+        vc = v;
+            for(int j = i; j < n; j++)
             {
-                if(v.at(j) == 0)
-                {
-                    count ++;
-                    ans.pb(count);
-                    ans.pb(total + count);
-                }
-
-                else
-                {
-                    total --;
-                    ans.pb(total);
-                }
+               vc.at(j) = 1 - vc.at(j);
+               sum = accumulate(vc.begin(), vc.end(), 0);
+               total = max(total,sum);
             }
-
-            ans.pb(total + count);
-        }
     }
 
-    cout << *max_element(ans.begin(), ans.end());
+    cout << total;
+
 }
