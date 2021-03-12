@@ -10,6 +10,7 @@ using namespace std;
 
 int main()
 {
+    fast;
     int t;
     cin >> t;
     while(t --)
@@ -17,6 +18,37 @@ int main()
         ll a, b;
         cin >> a >> b;
 
-        ll ac = a , bc = b;
+        if(!a || !b)
+        {
+            cout << 0 << endl;
+            continue;
+        }
+
+        ll ans;
+
+        if(max(a, b) <= 2 * min(a, b))
+        {
+             ans = max(a, b) - min(a, b);
+            ll rem = min(a, b) - ans;
+
+            if(rem % 3 == 0 || rem % 3 == 1)
+            {
+                ans += ((rem / 3) * 2);
+            }
+
+            else
+            {
+                ans += ((rem / 3) * 2) + 1;
+            }
+
+        }
+
+        else
+        {
+            ans = min(a, b);
+        }
+
+
+        cout << ans << endl;
     }
 }

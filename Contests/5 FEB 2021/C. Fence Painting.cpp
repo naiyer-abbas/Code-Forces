@@ -4,7 +4,7 @@ using namespace std;
 #define ll long long int
 #define pb push_back
 #define mp make_pair
-#define fast ios_base :: sync_with_stdio(0);    cin.tie(0);     cout.tie(0);
+#define fast ios_base :: sync_with_stdio(false);    cin.tie(NULL);
 
 int main()
 {
@@ -17,122 +17,107 @@ int main()
         int n, m;
         cin >> n >> m;
 
-        int ans[m] = {};
+        int bef[n];
+        int aft[n];
 
-        vector <int> original;
-        original.pb(0);
-        int temp;
-        for(int i = 1; i <= n; i++)
+        for(int i = 0; i < n; i++)
         {
-            cin >> temp;
-            original.pb(temp);
+            cin >> bef[i];
         }
 
-        vector <int> New ;
-        New.pb(0);
-        for(int i = 1; i <= n; i++)
+        for(int i = 0; i < n; i++)
         {
-            cin >> temp;
-            New.pb(temp);
+            cin >> aft[i];
         }
 
-        vector <int> painter;
+        int painter[m];
+
         for(int i = 0; i < m; i++)
         {
-            cin >> temp;
-            painter.pb(temp);
+            cin >> painter[i];
         }
 
-        int x;
+        int check = 0;
+        int ans[m];
+        int useless;
 
-        for( x = 1; x <= n; x++)
+        for(int i = n - 1; i >= 0; i--)
         {
-            if(painter.at(m - 1) == New.at(x))
+            if(aft[i] == painter[m - 1] && aft[i] != bef[i])
             {
-                x = -1;
+                check = 1;
+                useless = i;
                 break;
             }
         }
 
-        if(x != -1)
+        if(!check)
         {
-            cout << "NO" <<endl;
-        }
-
-        else
-        {
-            int record[n + 1] = {};
-
-            for(int i = 1; i <= n; i++)
+            for(int i = n - 1; i >= 0; i--)
             {
-                if(original.at(i) != New.at(i))
+                if(aft[i] == painter[m - 1])
                 {
-                    record[i] = 1;
-                }
-            }
-
-            for(int i = 1; i < New.size(); i++)
-            {
-                if(painter.at(m - 1) == New.at(i))
-                {
-                    ans[m - 1] = i;
+                    check = 1;
+                    useless = i;
                     break;
                 }
             }
+        }
 
+        if(!check)
+        {
+            cout << "NO" << endl;
+            continue;
+        }
 
-            for(int i = 0; i < m; i++)
+        for(int i = 0; i < n; i ++)
+        {
+            if(bef[i] != aft[i])
             {
-                for(int j = 1; j <= n; j++)
+                for(int j = 0; j < m; j++)
                 {
-                    if(painter.at(i) == New.at(j))
+                    if(painter[j] == aft[i])
                     {
-                        if(record[j])
-                        {
-                            ans[i] = j;
-                            painter.at(i) = -1;
-                            record[j] = 0;
-                            //original[j] = New[j];
-                            break;
-                        }
+                        ans[j] = i;
+                        bef[i] = aft[i];
+                        painter[j] = -1;
+                        break;
                     }
+
                 }
             }
-
-            for(int i = 0; i < m - 1; i++)
-             {
-                if(painter.at(i) != -1)
-                {
-                    painter.at(i) = -1;
-                    ans[i] = ans[m - 1];
-                    //record[ans[m - 1]] = 0;
-                }
-            }
-
-
-            int j;
-
-            for( j = 1; j <= n; j++)
-            {
-                if(record[j])
-                {
-                    cout << "NO" << flush << endl;
-                    j = -1;
-                    break;
-                }
-            }
-
-            if(j != -1)
-            {
-                cout << "YES" << flush << endl;
-                for(int i = 0; i < m; i++)
-                {
-                    cout << ans[i] << " ";
-                }
-
-                cout << endl;
-            }
-
         }
+
+        for(int i = 0; i < m; i++)
+        {
+            if(painter[i] != -1)
+            {
+                ans[i] = useless;
+            }
+        }
+
+
+        for(int i = 0; i < n; i++)
+        {
+            if(bef[i] != aft[i])
+            {
+                check = 0;
+                break;
+            }
+        }
+
+        if(!check)
+        {
+            cout << "NO" << endl;
+            continue;
+        }
+
+        cout << "YES" << endl;
+
+        for(int i = 0; i < m; i++)
+        {
+            cout << ans[i] + 1<< " ";
+        }
+        cout << endl;
     }
 }
