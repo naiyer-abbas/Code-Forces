@@ -14,37 +14,67 @@ using namespace std;
 
 int main()
 {
+    fast
     int t;
     cin >> t;
     while (t --)
     {
         int n, k;
         cin >> n >> k;
-
         vector <int> v(n);
+         vector <int> temp;
+
+        set <int> s;
 
         for(auto &e : v)
         {
             cin >> e;
-        }
 
-        unordered_map <int, int> um;
-
-        for(int i = 0; i < n;  i ++)
-        {
-            int sum = v.at(i);
-            for(int j = i + 1; j <= k && (i + k) < n; j++)
+            if(s.find(e) == s.end())
             {
-                sum += v.at(j);
-                if(j == k)
-                {
-                    um[i] = sum;
-                }
-
+                temp.pb(e);
             }
 
+            s.insert(e);
+        }
+
+        if(s.size() > k)
+        {
+            cout << - 1 << endl;
+            continue;
         }
 
 
+
+        if(s.size() < k)
+        {
+            while(temp.size() < k)
+            {
+                temp.pb(*s.begin());
+            }
+        }
+
+        int cnt = 0;
+
+        vector <int> ans;
+
+        while(cnt <= (9999 - n))
+        {
+            for(auto &e : temp)
+            {
+                ans.pb(e);
+            }
+
+            cnt += temp.size();
+        }
+
+        cout << ans.size() << endl;
+
+        for(auto &e: ans)
+        {
+            cout << e << " ";
+        }
+
+        cout << endl;
     }
 }
