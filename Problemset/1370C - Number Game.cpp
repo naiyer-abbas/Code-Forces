@@ -35,6 +35,13 @@ int main()
             continue;
         }
 
+        if(n == 1)
+        {
+            cout << "FastestFinger" << endl;
+            continue;
+        }
+
+
 
         set <ll> s;
 
@@ -65,39 +72,37 @@ int main()
             x *= 2;
         }
 
-        ll nc = n;
-        ll turn = 1;
+        if(powers.find(n) != powers.end())
+        {
+            cout << "FastestFinger" <<endl;
+            continue;
+        }
 
         int br = 0;
 
-            for(auto &e : s)
-            {
-                if(nc / e != 2 && powers.find(nc / e) != powers.end())
-                {
-                    br = 1;
-                    break;
-                }
-
-                if(nc == 2)
-                {
-                    br = 1;
-                    break;
-                }
-            }
-
-        if(!br)
-            {
-                turn ++;
-            }
-
-        if(turn == 1)
+        for(auto &e : s)
         {
-            cout << "Ashishgup" << endl;
+            if(powers.find(n / e) != powers.end())
+            {
+                cout << "Ashishgup" << endl;
+                br = 1;
+                break;
+            }
         }
 
-        else
+        if(!br)
         {
-            cout << "FastestFinger" << endl;
+             if(s.size() == 1)
+            {
+                cout << "FastestFinger" << endl;
+            }
+
+            else
+            {
+                cout << "Ashishgup" << endl;
+
+            }
+
         }
     }
 }
